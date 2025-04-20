@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-@1zr0l=+d=5d^5+xf2omntr1(3q8a53b0yy6&91f%!=k0ydt3e'
+SECRET_KEY = 'django-insecure-a#6^tobk9at1m@!k=e5c23n9d48tr=(-pq!8529up$_qv1a$d7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,9 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework' ,
-    'users',
-    'threads', 
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'api', 
 ]
 
 MIDDLEWARE = [
@@ -101,19 +101,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES' : (
+    'DEFAULT_AUTHENTICATION_CLASSES' : [
         'rest_framework_simplejwt.authentication.JWTAuthentication', 
-    )
+    ], 
 }
-from datetime import timedelta 
 
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-    'AUTH_HEADER_TYPES': ('Bearer',),
-}
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
