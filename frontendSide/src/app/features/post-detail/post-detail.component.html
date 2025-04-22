@@ -1,7 +1,32 @@
-<div *ngIf="post">
-    <h2>Пост #{{ post.id }}</h2>
-    <p><strong>Автор:</strong> {{ post.user.username }}</p>
-    <p>{{ post.content }}</p>
-    <small>Создан: {{ post.created_at | date:'short' }}</small>
-</div>
+<div class="post-container">
+    <!-- Индикатор загрузки -->
+    <div *ngIf="loading" class="loading">Загрузка...</div>
   
+    <!-- Сообщение об ошибке -->
+    <!-- Детали поста -->
+    <div *ngIf="post && !loading" class="post-detail">
+      <div class="post-header">
+        <span class="username">{{ post.user.username }}</span>
+        <span class="post-date">{{ post.created_at | date:'short' }}</span>
+      </div>
+      <div class="post-content">
+        <p>{{ post.content }}</p>
+      </div>
+    </div>
+  
+    <!-- Секция комментариев -->
+    <div *ngIf="!loading" class="comments-section">
+      
+      <ul class="comments-list" *ngIf="comments.length > 0">
+        <li *ngFor="let comment of comments" class="comment-item">
+          <div class="comment-header">
+            <span class="comment-username">{{ comment.user.username }}</span>
+            <span class="comment-date">{{ comment.created_at | date:'short' }}</span>
+          </div>
+          <div class="comment-content">
+            <p>{{ comment.content }}</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>

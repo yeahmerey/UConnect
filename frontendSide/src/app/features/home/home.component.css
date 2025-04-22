@@ -1,36 +1,84 @@
+h3 {
+  text-align: center;
+  padding: 20px;
+  color: #333;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-width: 600px;
+  margin: 0 auto;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
 .post-item {
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-  }
-  a {
-    text-decoration: none;
-  }
-  .post-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .username {
-    font-weight: bold;
-    font-size: 1.2rem;
-  }
-  
-  .post-date {
-    font-size: 0.9rem;
-    color: #777;
-  }
-  
-  .post-content p {
-    font-size: 1rem;
-    line-height: 1.5;
-    margin: 0;
-    color: #333;
-  }
-  
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  border: 1px solid #eaeaea;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.post-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.username {
+  font-weight: 600;
+  font-size: 15px;
+  color: #000;
+}
+
+.post-date {
+  font-size: 13px;
+  color: #737373;
+}
+
+.post-content p {
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 0;
+  color: #000;
+  white-space: pre-line;
+}
+
+/* Дополнительные элементы как в примере */
+.post-item::after {
+  content: "";
+  display: block;
+  height: 1px;
+  background-color: #f0f0f0;
+  margin-top: 16px;
+}
+
+/* Стиль для статуса как в FedEx примере */
+.delivery-status {
+  font-size: 13px;
+  color: #737373;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.delivery-status::before {
+  content: "•";
+  margin-right: 4px;
+  color: #00a2ff;
+}

@@ -12,14 +12,35 @@ import { CommonModule } from '@angular/common';
 })
 export class PostDetailComponent implements OnInit{
   post !: Post; 
+  comments: any[] = []; 
+  loading = true ;
   
-  constructor(private route: ActivatedRoute , private postService : PostsService){
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private postService : PostsService
+  ){}
   
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id')); 
-    this.postService.getPostById(id).subscribe(data => {
-      this.post = data ;
+    this.loadPostAndComments(id); 
+  }
+  
+  loadPostAndComments(postId : number): void{
+    this.loading = true ;
+    
+    this.postService.getPostById(postId).subscribe({
+      next: (post) => {
+        this.post = post ; 
+        this.loadComments(postId); 
+      }
+    }); 
+  }
+  loadComments(postId :number) : void{
+    this.postService.getPostComments(postId).subscribe({
+      next : (comments) => {
+        this.comments = comments ;
+        this.loading = false ;
+      }
     })
   }
 }
