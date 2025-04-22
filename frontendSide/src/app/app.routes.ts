@@ -12,5 +12,5 @@ export const routes: Routes = [
     }, 
     {
         path : 'posts/:id' , component :PostDetailComponent , title : 'Post page'
-    }
+    },
 ];

@@ -22,4 +22,7 @@ export class PostsService {
     return this.client.get<Post[]>('http://127.0.0.1:8000/api/posts/' , 
       {headers: {"Authorization":`Bearer ${access}`}})
   }
+  getPostById(id: number): Observable<Post> {
+    return this.client.get<Post>(`http://127.0.0.1:8000/api/posts/${id}`)
+  }
 }
