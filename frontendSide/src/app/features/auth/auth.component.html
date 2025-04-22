@@ -1,1 +1,11 @@
 <p>auth works!</p>
+
+<fieldset>
+    <label>Username</label>
+    <input type="text" [(ngModel)]="authModel.username">
+</fieldset>
+<fieldset>
+    <label>Password</label>
+    <input type="password" [(ngModel)]="authModel.password">
+</fieldset>
+<button (click)="login()">Login</button>
