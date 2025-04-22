@@ -123,6 +123,13 @@ def get_all_posts(request):
     serializer = PostSerializer(posts, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticatedOrReadOnly])
+def get_post_by_id(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    serializer = PostSerializer(post)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
 class CommentDetailView(APIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
 

@@ -6,7 +6,7 @@ from .views import (
     ProfileView,
     PostView,
     PostCommentsView,
-    CommentDetailView, get_all_posts
+    CommentDetailView, get_all_posts, get_post_by_id
 )
 
 urlpatterns = [
@@ -23,7 +23,7 @@ urlpatterns = [
 
     # Posts
     path('posts/', get_all_posts, name='posts-list'),
-    path('posts/<int:post_id>/', PostView.as_view(), name='post-detail'),
+    path('posts/<int:post_id>/', get_post_by_id, name='post-detail'),
     path('profile/posts', PostView.as_view(), name='user-post-comments'),
     path('profile/<int:user_id>/posts/', PostView.as_view(), name='user-posts'),
     path('profile/<int:user_id>/posts/<int:post_id>/comments/',
