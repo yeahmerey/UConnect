@@ -4,30 +4,31 @@ from .views import (
     register,
     logout,
     ProfileView,
-    PostView,
+    PostListCreateView,
+    PostDetailView,
+    UserPostsView,
     PostCommentsView,
-    CommentDetailView, get_all_posts, get_post_by_id
+    CommentDetailView
 )
 
 urlpatterns = [
     # Auth
-    path('register/', register, name='register'),
-    path('login/', TokenObtainPairView.as_view(), name='login'),
-    path('refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('logout/', logout, name='logout'),
+    path('auth/register/', register, name='register'),
+    path('auth/login/', TokenObtainPairView.as_view(), name='login'),
+    path('auth/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('auth/logout/', logout, name='logout'),
 
     # Profile
     path('profile/', ProfileView.as_view(), name='profile'),
+    path('profile/<int:user_id>/', ProfileView.as_view(), name='user-profile'),
+    path('users/<int:user_id>/posts/', UserPostsView.as_view(), name='user-posts'),
+    path('my/posts/', UserPostsView.as_view(), name='my-posts'),
 
-    path('profile/<int:user_id>/', ProfileView.as_view(), name='profile'),
+    # Posts - independent CRUD
+    path('posts/', PostListCreateView.as_view(), name='posts-list'),
+    path('posts/<int:post_id>/', PostDetailView.as_view(), name='post-detail'),
 
-    # Posts
-    path('posts/', get_all_posts, name='posts-list'),
-    path('posts/<int:post_id>/', get_post_by_id, name='post-detail'),
-    path('profile/posts', PostView.as_view(), name='user-post-comments'),
-    path('profile/<int:user_id>/posts/', PostView.as_view(), name='user-posts'),
-    path('profile/<int:user_id>/posts/<int:post_id>/comments/',
-         PostCommentsView.as_view(), name='post-comments'),
-    path('profile/<int:user_id>/posts/<int:post_id>/comments/<int:comment_id>/',
-         CommentDetailView.as_view(), name='comment-detail'),
+    # Comments
+    path('posts/<int:post_id>/comments/', PostCommentsView.as_view(), name='post-comments'),
+    path('posts/<int:post_id>/comments/<int:comment_id>/', CommentDetailView.as_view(), name='comment-detail'),
 ]
