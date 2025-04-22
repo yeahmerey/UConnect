@@ -6,27 +6,28 @@ from .views import (
     ProfileView,
     PostView,
     PostCommentsView,
-    CommentDetailView
+    CommentDetailView, get_all_posts
 )
 
 urlpatterns = [
     # Auth
     path('register/', register, name='register'),
     path('login/', TokenObtainPairView.as_view(), name='login'),
-    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('logout/', logout, name='logout'),
 
     # Profile
     path('profile/', ProfileView.as_view(), name='profile'),
 
-    # Posts
-    path('posts/', PostView.as_view(), name='posts-list'),
-    path('posts/<int:post_id>/', PostView.as_view(), name='post-detail'),
-    path('users/<int:user_id>/posts/', PostView.as_view(), name='user-posts'),
+    path('profile/<int:user_id>/', ProfileView.as_view(), name='profile'),
 
-    # Comments (вложенные)
-    path('users/<int:user_id>/posts/<int:post_id>/comments/',
+    # Posts
+    path('posts/', get_all_posts, name='posts-list'),
+    path('posts/<int:post_id>/', PostView.as_view(), name='post-detail'),
+    path('profile/posts', PostView.as_view(), name='user-post-comments'),
+    path('profile/<int:user_id>/posts/', PostView.as_view(), name='user-posts'),
+    path('profile/<int:user_id>/posts/<int:post_id>/comments/',
          PostCommentsView.as_view(), name='post-comments'),
-    path('users/<int:user_id>/posts/<int:post_id>/comments/<int:comment_id>/',
+    path('profile/<int:user_id>/posts/<int:post_id>/comments/<int:comment_id>/',
          CommentDetailView.as_view(), name='comment-detail'),
 ]

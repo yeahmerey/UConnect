@@ -46,7 +46,8 @@ def logout(request):
         token = RefreshToken(refresh_token)
         token.blacklist()
         return Response(status=status.HTTP_205_RESET_CONTENT)
-    except Exception:
+    except Exception as e:
+        print(str(e))
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
 class ProfileView(APIView):
@@ -59,11 +60,13 @@ class ProfileView(APIView):
         serializer = ProfileSerializer(profile)
         return Response(serializer.data)
 
-    # PATCH остается только для авторизованных
     def patch(self, request):
         if not request.user.is_authenticated:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
+
         profile = get_object_or_404(Profile, user=request.user)
+        if profile.user != request.user:
+            return Response(status=status.HTTP_403_FORBIDDEN)
         serializer = ProfileSerializer(profile, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
@@ -71,8 +74,7 @@ class ProfileView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class PostView(APIView):
-    """Управление постами"""
-    permission_classes = [IsAuthenticatedOrReadOnly]  # Изменено
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get(self, request, user_id=None):
         user = request.user if user_id is None else get_object_or_404(User, id=user_id)
@@ -80,7 +82,6 @@ class PostView(APIView):
         serializer = PostSerializer(posts, many=True)
         return Response(serializer.data)
 
-    # POST/PUT/DELETE остаются защищенными
     def post(self, request):
         if not request.user.is_authenticated:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
@@ -113,6 +114,15 @@ class PostCommentsView(APIView):
             serializer.save(user=request.user, post=post)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticatedOrReadOnly])
+def get_all_posts(request):
+
+    posts = Post.objects.all()
+    serializer = PostSerializer(posts, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
 class CommentDetailView(APIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
@@ -141,3 +151,4 @@ class CommentDetailView(APIView):
             return Response(status=status.HTTP_403_FORBIDDEN)
         comment.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
