@@ -1,7 +1,26 @@
 <ul>
     <li class="logo">
-        <img src="assets/logo.png" alt="Threads" width="120">
+      <img src="assets/logo.png" alt="Threads" width="120">
     </li>
-    <li><a [routerLink]="['']">Home</a></li>
-    <li><a [routerLink]="['/auth']">Login</a></li>
-</ul>
+  
+    <li class="home">
+      <a [routerLink]="['']">Home</a>
+    </li>
+  
+    <!-- Если пользователь авторизован -->
+    <!-- Если пользователь авторизован -->
+    <li class="auth-links" *ngIf="username; else loginRegister">
+        <a [routerLink]="['/profile', username]" class="username">{{ username }}</a>
+        <button class="logout-btn" (click)="logout()">Logout</button>
+    </li>
+  
+  
+    <!-- Если пользователь не авторизован -->
+    <ng-template #loginRegister>
+      <li class="auth-links">
+        <a [routerLink]="['/auth']" class="login-link">Login</a>
+        <a [routerLink]="['/register']" class="register-link">Register</a>
+      </li>
+    </ng-template>
+  </ul>
+  

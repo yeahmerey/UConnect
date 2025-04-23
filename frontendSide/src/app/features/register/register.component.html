@@ -1,0 +1,19 @@
+<form class="auth-form" (ngSubmit)="register(registerForm)" #registerForm="ngForm">
+    <fieldset>
+      <label>Username</label>
+      <input type="text" name="username" [(ngModel)]="username" required>
+    </fieldset>
+  
+    <fieldset>
+      <label>Email</label>
+      <input type="email" name="email" [(ngModel)]="email" required>
+    </fieldset>
+  
+    <fieldset>
+      <label>Password</label>
+      <input type="password" name="password" [(ngModel)]="password" required>
+    </fieldset>
+  
+    <button type="submit">Register</button>
+  </form>
+  

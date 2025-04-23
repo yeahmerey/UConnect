@@ -1,15 +1,14 @@
-<p>auth works!</p>
 
-<form class="auth-form">
+<form class="auth-form" (ngSubmit)="login()">
   <fieldset>
     <label>Username</label>
-    <input type="text" [(ngModel)]="authModel.username">
-  </fieldset>
-  
-  <fieldset>
-    <label>Password</label>
-    <input type="password" [(ngModel)]="authModel.password">
+    <input type="text" [(ngModel)]="authModel.username" name="username" required>
   </fieldset>
 
-  <button (click)="login()">Login</button>
+  <fieldset>
+    <label>Password</label>
+    <input type="password" [(ngModel)]="authModel.password" name="password" required>
+  </fieldset>
+
+  <button type="submit">Login</button>
 </form>

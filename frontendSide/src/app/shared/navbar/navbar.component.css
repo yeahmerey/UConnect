@@ -1,49 +1,119 @@
 ul {
-    display: flex;
-    align-items: center;
-    padding: 0 20px;
-    height: 60px;
-    background-color: #000;
-    color: white;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    margin: 0;
-    list-style: none;
-    border-bottom: 0.5px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  height: 60px;
+  background-color: #000;
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  margin: 0;
+  list-style: none;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo {
+  margin-right: auto;
+}
+
+.logo img {
+  height: 40px;
+  width: auto;
+}
+
+.home {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.home a {
+  color: white;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.home a:hover {
+  color: #f0f0f0; /* Светлый оттенок при наведении */
+}
+
+.auth-links {
+  margin-left: auto;
+  display: flex;
+  gap: 15px; /* Увеличим расстояние между ссылками Login и Register */
+  align-items: center; /* Выравнивание по центру */
+}
+
+.auth-links a {
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.auth-links a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Стиль для кнопки Register */
+.register-link {
+  background-color: white;
+  color: black;
+  border: 1px solid #ccc;
+}
+
+.register-link:hover {
+  background-color: #f0f0f0;
+}
+
+.login-link {
+  color: white;
+}
+
+/* Стиль для кнопки Logout */
+.logout-btn {
+  background-color: white;
+  color: black;
+  border: 1px solid #ccc;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.logout-btn:hover {
+  background-color: #f0f0f0;
+}
+
+/* Имя пользователя */
+.username {
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* Убираем подчеркивание с активной ссылки */
+li a.router-link-active {
+  font-weight: 600;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  ul {
+      flex-direction: column; /* Ставим элементы вертикально */
+      align-items: flex-start; /* Сдвигаем элементы влево */
   }
-  
-  .logo {
-    margin-right: auto;
+
+  li {
+      width: 100%;
+      text-align: center;
   }
-  
-  .logo img {
-    height: 40px;
-    width: auto;
+
+  .auth-links {
+      display: block;
+      text-align: center;
+      gap: 0;
   }
-  
-  li:nth-child(2) {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  
-  li:last-child {
-    margin-left: auto;
-  }
-  
-  li a {
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: 500;
-    padding: 8px 16px;
-    border-radius: 8px;
-    transition: background-color 0.2s ease;
-  }
-  
-  li a:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-  }
-  
-  li a.router-link-active {
-    font-weight: 600;
-  }
+}

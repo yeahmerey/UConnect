@@ -29,4 +29,7 @@ export class PostsService {
   getPostComments(id: number): Observable<any[]> {
     return this.client.get<any[]>(`http://127.0.0.1:8000/api/posts/${id}/comments`)
   }
+  getUserPosts(username: string): Observable<Post[]> {
+    return this.client.get<Post[]>(`http://127.0.0.1:8000/api/profile/${username}/posts/`);
+  }
 }

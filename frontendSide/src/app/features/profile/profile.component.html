@@ -1,0 +1,26 @@
+<div class="profile-container" *ngIf="profile">
+    <div class="profile-header">
+      <h1>{{ profile.user.username }}</h1>
+    </div>
+  
+    <div class="profile-info">
+      <div class="profile-avatar">
+        <img *ngIf="profile.avatar" [src]="profile.avatar" alt="{{ profile.user.username }}'s avatar" />
+        <div *ngIf="!profile.avatar" class="no-avatar">No avatar available</div>
+      </div>
+  
+      <div class="profile-details">
+        <p><strong>Email:</strong> {{ profile.user.email }}</p>
+        <p><strong>Bio:</strong> {{ profile.bio || 'No bio available' }}</p>
+      </div>
+    </div>
+  
+    <div class="profile-posts">
+      <h2>Posts</h2>
+      <div *ngFor="let post of posts" class="post">
+        <p><strong>{{ post.user.username }}:</strong> {{ post.content }}</p>
+        <p class="post-date">{{ post.created_at | date: 'short' }}</p>
+      </div>
+    </div>
+  </div>
+  
