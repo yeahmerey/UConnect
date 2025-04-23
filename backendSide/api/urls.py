@@ -19,7 +19,7 @@ urlpatterns = [
     path('auth/logout/', logout, name='logout'),
 
     # Profile
-    path('profile/', ProfileView.as_view(), name='profile'),
+    path('my/', ProfileView.as_view(), name='profile'),
     path('profile/<str:username>/', ProfileView.as_view(), name='user-profile'),
     path('profile/<str:username>/posts/', UserPostsView.as_view(), name='user-posts'),
     path('my/posts/', UserPostsView.as_view(), name='my-posts'),

@@ -54,7 +54,7 @@ def logout(request):
 
 
 class ProfileView(APIView):
-    """Профиль пользователя"""
+
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get(self, request, username=None):
@@ -70,6 +70,9 @@ class ProfileView(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
 
 # New Post CRUD views
 class PostListCreateView(APIView):
@@ -135,15 +138,19 @@ class PostDetailView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class UserPostsView(APIView):
-    """Получение постов конкретного пользователя"""
-    permission_classes = [IsAuthenticatedOrReadOnly]
 
-    def get(self, request, user_id=None):
-        user = request.user if user_id is None else get_object_or_404(User, id=user_id)
+class UserPostsView(APIView):
+    def get(self, request, username=None):
+        user = request.user if username is None else get_object_or_404(User, username=username)
         posts = Post.objects.filter(user=user).order_by('-created_at')
         serializer = PostSerializer(posts, many=True)
         return Response(serializer.data)
+    def post(self, request):
+        serializer = PostSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=request.user)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class PostCommentsView(APIView):
