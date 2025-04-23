@@ -57,8 +57,8 @@ class ProfileView(APIView):
     """Профиль пользователя"""
     permission_classes = [IsAuthenticatedOrReadOnly]
 
-    def get(self, request, user_id=None):
-        user = request.user if user_id is None else get_object_or_404(User, id=user_id)
+    def get(self, request, username=None):
+        user = request.user if username is None else get_object_or_404(User, username=username)
         profile = get_object_or_404(Profile, user=user)
         serializer = ProfileSerializer(profile)
         return Response(serializer.data)
@@ -70,7 +70,6 @@ class ProfileView(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 # New Post CRUD views
 class PostListCreateView(APIView):

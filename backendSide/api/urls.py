@@ -20,15 +20,14 @@ urlpatterns = [
 
     # Profile
     path('profile/', ProfileView.as_view(), name='profile'),
-    path('profile/<int:user_id>/', ProfileView.as_view(), name='user-profile'),
-    path('users/<int:user_id>/posts/', UserPostsView.as_view(), name='user-posts'),
+    path('profile/<str:username>/', ProfileView.as_view(), name='user-profile'),
+    path('profile/<str:username>/posts/', UserPostsView.as_view(), name='user-posts'),
     path('my/posts/', UserPostsView.as_view(), name='my-posts'),
 
     # Posts - independent CRUD
     path('posts/', PostListCreateView.as_view(), name='posts-list'),
     path('posts/<int:post_id>/', PostDetailView.as_view(), name='post-detail'),
 
-    # Comments
     path('posts/<int:post_id>/comments/', PostCommentsView.as_view(), name='post-comments'),
     path('posts/<int:post_id>/comments/<int:comment_id>/', CommentDetailView.as_view(), name='comment-detail'),
 ]
